@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
     NgIf,
     UpperCasePipe,
     HeroDetailComponent,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './heroes.component.html',
   styleUrl: './heroes.component.css'

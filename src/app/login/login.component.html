@@ -1,0 +1,10 @@
+<form class="form-group" [formGroup]="credenciales" (ngSubmit)="onSubmit()">
+    <label for="user">Usuario</label>
+    <input type="text" id="user" formControlName="nombre" class="form-control">
+    <label for="contra">Contraseña</label>
+    <input type="text" id="contra" formControlName="contraseña" class="form-control">
+    <button class="button" type="submit">Loguearse</button>
+    <div [hidden]="fallo" class="alert alert-danger">
+        Usuario o contraseña incorrectos
+      </div>
+</form>

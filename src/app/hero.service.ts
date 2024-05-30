@@ -4,6 +4,7 @@ import { HEROES } from './mock-heroes';
 import { Observable, of, catchError, map, tap} from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { usuarios } from './mock-usuarios';
 
 
 @Injectable({
@@ -11,7 +12,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HeroService {
 
+  private logueado = false;
+
   private heroesUrl = 'api/heroes';
+
+  estoyLogueado(): boolean {
+    return this.logueado;
+  }
+  loguearse(): void {
+    this.logueado = true;
+  }
 
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
@@ -89,6 +99,13 @@ export class HeroService {
         catchError(this.handleError<Hero[]>('searchHeroes', []))
       )
     );
+  }
+
+  getUsuario(name: string, contraseña: string): boolean{
+    if (usuarios.filter(user => user.usuario === name && user.contraseña === contraseña).length == 0) {
+      return false;
+    }
+    return true;
   }
 }
 
