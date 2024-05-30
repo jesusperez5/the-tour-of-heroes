@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
 import { Observable, of, catchError, map, tap} from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { usuarios } from './mock-usuarios';
+import { LoginService } from './login.service';
 
 
 @Injectable({
@@ -101,11 +102,13 @@ export class HeroService {
     );
   }
 
-  getUsuario(name: string, contraseña: string): boolean{
+  
+
+  /*getUsuario(name: string, contraseña: string): boolean{
     if (usuarios.filter(user => user.usuario === name && user.contraseña === contraseña).length == 0) {
       return false;
     }
     return true;
-  }
+  }*/
 }
 

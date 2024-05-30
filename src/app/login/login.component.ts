@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { HeroService } from '../hero.service';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   heroService = inject(HeroService);
+  login = inject(LoginService)
   router = inject(Router);
-  Usuario = 'usuario';
-  contra = 'abc123.';
   credenciales;
   fallo = true;
 
@@ -26,13 +26,15 @@ export class LoginComponent {
     });
   }
   onSubmit() {
-    if (this.heroService.getUsuario(this.credenciales.value.nombre?? "", this.credenciales.value.contraseña?? "")) {
-      console.warn('Se han autentificado con exito', this.credenciales.value.nombre)
-      this.heroService.loguearse();
-      this.router.navigateByUrl('heroes')
-    } else {
-      this.fallo = false;
-    } 
-    this.credenciales.reset();
+    this.login.comprobarUsuario(this.credenciales.value.nombre?? "", this.credenciales.value.contraseña?? "").subscribe( usuario =>{
+      if(usuario) {
+        console.warn('Se han autentificado con exito', this.credenciales.value.nombre)
+        this.heroService.loguearse();
+        this.router.navigateByUrl('heroes');
+      } else {
+        this.fallo = false;
+      }
+      this.credenciales.reset();
+    });
   }
 }
